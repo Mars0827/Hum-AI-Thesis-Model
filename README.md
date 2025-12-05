@@ -1,5 +1,3 @@
-.
-
 🌾 Rice Quality Grading System (NCT Standard)
 
 A computer vision–powered system that automatically grades rice quality following the National Cooperative Testing (NCT) Manual for Rice (Philippines).
