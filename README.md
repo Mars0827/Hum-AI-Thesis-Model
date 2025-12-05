@@ -1,13 +1,12 @@
 🌾 Rice Quality Grading System (NCT Standard)
 
-A computer vision–powered system that automatically grades rice quality following the National Cooperative Testing (NCT) Manual for Rice (Philippines).
+An automated computer vision system that grades rice according to the National Cooperative Testing (NCT) Manual used in the Philippines.
+It uses a custom-trained YOLOv11 model to classify grain defects and a Python-based grading engine to compute the final NCT quality grade.
 
-This project uses a custom-trained YOLOv11 model to classify individual grains and a Python post-processing engine to compute the final NCT grade (Premium, Grade 1, Grade 2, Grade 3) based on defect percentages and Head Rice Recovery.
-
-🎯 Features
+📌 Features
 🔍 Automated Grain Detection
 
-Identifies 6 types of rice grain defects using YOLOv11:
+Detects and classifies the following six classes:
 
 Whole (Head Rice)
 
@@ -21,9 +20,9 @@ Immature
 
 Foreign Object
 
-🏷️ NCT-Compliant Grading
+📘 NCT-Compliant Grading
 
-Implements grading logic from NCT Manual, Chapter XVI using:
+Assigns the final official grade (Premium, Grade 1–3) using:
 
 Head Rice Recovery (%)
 
@@ -35,75 +34,65 @@ Discoloration (%)
 
 Foreign Matter (Count)
 
-📊 Detailed Reporting
+Uses limiting-factor logic, meaning the worst-performing parameter determines the final grade.
 
-Generates:
+📊 Reporting
 
-Annotated images with bounding boxes
+Outputs:
 
-Full breakdown of detected grains
+Annotated images
 
-Final NCT Grade using limiting-factor rule
-(lowest passing category determines final grade)
+Detailed text report
+
+Percentage breakdown for each defect type
 
 🛠️ Tech Stack
 Component	Technology
 Model Architecture	YOLOv11 (Ultralytics)
 Language	Python 3.x
-Key Libraries	ultralytics, opencv-python, numpy, matplotlib, glob
-Training Environment	Google Colab (T4 GPU)
+Key Libraries	ultralytics, opencv-python, numpy, matplotlib
+Hardware Used for Training	Google Colab (T4 GPU)
 📘 NCT Grading Standard
-NCT Quality Classification Table
+NCT Quality Table
 Grade	Head Rice %	Chalky %	Immature %	Discolored %	Foreign Matter
-Premium	≥ 57.0%	< 2.0%	< 2.0%	≤ 0.5%	0
-Grade 1	48.0–56.9%	2.0–5.0%	2.0–5.0%	≤ 2.0%	0
+Premium	≥ 57.0%	< 2.0%	< 2.0%	≤ 0.5%	None
+Grade 1	48.0–56.9%	2.0–5.0%	2.0–5.0%	≤ 2.0%	None
 Grade 2	39.0–47.9%	5.1–10.0%	5.1–10.0%	–	Allowed
 Grade 3	30.0–38.9%	10.1–15.0%	10.1–15.0%	–	Allowed
-
-📝 NCT Rule:
-A “limiting factor” applies —
-even if Head Rice is Premium level, the entire batch grade drops to the lowest category where any defect falls.
-
 🚀 Installation
-
-Clone the repository:
-
+1️⃣ Clone the repository
 git clone https://github.com/your-username/rice-grading-system.git
 cd rice-grading-system
 
-
-Install dependencies:
-
+2️⃣ Install dependencies
 pip install ultralytics opencv-python matplotlib numpy
 
+3️⃣ Add the trained model
 
-Add your model weights:
+Place your model file here:
 
-grain_quality_detector.pt
-
-
-Place it in the root directory.
+/rice-grading-system/grain_quality_detector.pt
 
 💻 Usage
-1️⃣ Set the paths
+Step 1 — Set the paths
 
 Edit your script (e.g., grade_rice.py):
 
 IMAGE_DIR = "./test_images/"
 MODEL_PATH = "grain_quality_detector.pt"
 
-2️⃣ Run the rice grading system:
+Step 2 — Run the system
 python grade_rice.py
 
-3️⃣ View Output
+Step 3 — View results
 
 You will get:
 
-A printed summary report
+Terminal report
 
-Annotated images per batch
+Annotated detection images
 
-📄 Sample Report Output
+📄 Sample Output Report
 ========================================
       NCT RICE QUALITY ANALYSIS REPORT
 ========================================
@@ -121,11 +110,11 @@ OFFICIAL GRADE:         GRADE 2
 
 🧠 Model Training Summary
 
-Training Images: ~4,200
+Training Images: 4,200
 
-Validation: 480
+Validation Images: 480
 
-Test: 172
+Test Images: 172
 
 Epochs: 50
 
@@ -135,9 +124,10 @@ Classes: Whole, Broken, Chalky, Discolored, Immature, Foreign Object
 
 🤝 Contributing
 
-Contributions are welcome!
-Feel free to open an Issue or submit a Pull Request.
+Pull Requests are welcome!
+Feel free to open Issues for improvements, bugs, or new feature suggestions.
 
-⭐ Acknowledgments
+📜 License
 
-This project is aligned with the NCT Rice Manual (Chapter XVI) and aims to support researchers, graders, and agritech developers in automating rice quality assessment.
+This project can include any license you prefer (MIT recommended).
+Add your LICENSE file if needed.
